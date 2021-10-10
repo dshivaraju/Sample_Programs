@@ -1,94 +1,83 @@
-public class HelloWorld {
+public class Stock {
     
     private int[] stock(int[] P,int[] b,int[] s){
+
+        /* This function takes stock prices in P, buy patterns in b, sell patterns in s and returns
+            a list of positions based on buy and sell patterns*/
+
         int[] res=new int[P.length];
         for(int i=0;i<res.length;i++)
             res[i]=0;
         
-        for(int p=1;p<res.length;p++){
-            for(int k=1;k<=p;k++){
+        for(int p=1;p<res.length;p++){ //for every index in P find whether that index results in a buy position or sell position
+
+
+            for(int k=1;k<=p;k++){    //This logic checks for buy position
                 int i=k,m=0;
                 while(i<=p){
                     if(P[i-1]<P[i]){
-                        if(m==b.length)
+                        if(m==b.length || b[m]==-1)
                             break;
-                        if(b[m]==-1)
-                            break;
-                        else
-                            m++;
+                         m++;
                     }else if(P[i-1]>P[i]){
-                        if(m==b.length)
+                        if(m==b.length || b[m]==1)
                             break;
-                        if(b[m]==1)
-                            break;
-                        else
-                            m++;
+                        m++;
                     }
                     i++;
                 }
                 
                 if(i>p && m==b.length){
-                    System.out.println(k+" i "+i+" p "+p+" m "+m);
-                    System.out.println("here");
-                    res[p]=res[p-1]+1;
-                    System.out.println(p+" "+res[p]+" "+res[p-1]);
+                    res[p]=res[p-1]+1;    //since it is a buy position, increment the result for cur index "p" by 1 from the prev index position
                     break;
                 }
                 else{
-                    System.out.println("here in else "+p);
                     res[p]=res[p-1];
                 }
                     
             }
-            for(int k=1;k<=p;k++){
+
+
+            for(int k=1;k<=p;k++){   //This logic checks for sell position
                 int i=k,m=0;
                 while(i<=p){
                     if(P[i-1]<P[i]){
-                        if(m==s.length)
+                        if(m==s.length || s[m]==-1)
                             break;
-                        if(s[m]==-1)
-                            break;
-                        else
-                            m++;
+                        m++;
                     }else if(P[i-1]>P[i]){
-                        if(m==s.length)
+                        if(m==s.length || s[m]==1)
                             break;
-                        if(s[m]==1)
-                            break;
-                        else
-                            m++;
+                        m++;
                     }
                     i++;
                 }
             
-            if(i>p && m==s.length && res[p-1]>0){
-                System.out.println("i "+i+" p "+p+" m "+m);
-                System.out.println("here sell");
-                res[p]=Math.max(res[p],res[p-1])-1;
-                break;
-                //System.out.println("here sell");
-            }
-                
-                /*else
-                    res[p]=res[p-1];*/
+                if(i>p && m==s.length && res[p-1]>0){
+                    res[p]=Math.max(res[p],res[p-1])-1;
+                    break;
+                }
             }
         }
-        for(int i=0;i<res.length;i++)
-            System.out.print(res[i]+" ");
-        System.out.println();
+        
         return res;
     }
     
     public static void main(String[] args) {
-        //System.out.println("Hello, World!"); 
-        /*int[] P={51,56,56,56,60,59,54,57,52,48};
+        // Driver function
+
+        // Test case 1
+        int[] P={51,56,56,58,60,59,54,57,52,48};
         int[] b={1,1};
-        int[] s={-1,-1,1};*/
-        int[] P={26,28,34,16,28,87};
+        int[] s={-1,-1,1};
+
+        //Test case 2
+        /*int[] P={26,28,34,16,28,87};
         int[] b={1,1};
-        int[] s={-1};
-        HelloWorld h=new HelloWorld();
-        int[] res=h.stock(P,b,s);
+        int[] s={-1};*/
+        
+        Stock s=new Stock();
+        int[] res=s.stock(P,b,s);
         for(int i=0;i<res.length;i++)
             System.out.print(res[i]+" ");
         System.out.println();
