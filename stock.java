@@ -3,7 +3,7 @@ public class Stock {
     private int[] stock(int[] P,int[] b,int[] s){
 
         /* This function takes stock prices in P, buy patterns in b, sell patterns in s and returns
-            a list of positions based on buy and sell patterns*/
+            a list of positions based on buy and sell patterns. Running time O(n3) where n is length of Price array P*/
 
         int[] res=new int[P.length];
         for(int i=0;i<res.length;i++)
