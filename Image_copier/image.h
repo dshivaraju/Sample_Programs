@@ -3,7 +3,7 @@ typedef struct image{
 	int max_width;
 	int actual_height;
 	int actual_width;
-	int* data;
+	void* data;
 }image;
 
-int copy_image(image* src,image* dest);
+int copy_image(image* src,image* dest,int datatype);
